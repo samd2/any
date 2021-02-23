@@ -58,6 +58,7 @@ matrix:
     # hidden symbol `_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE11__recommendEm' isn't defined
     - env: B2_ARGS='cxxstd=03,11,14 toolset=clang-libc++ cxxflags="--coverage -DBOOST_TRAVISCI_BUILD" linkflags="--coverage"' GCOVTOOL='gcov_for_clang.sh'
       name: "Clang-3.8, libc++"
+      dist: trusty
       addons:
         apt:
           packages: libc++-dev
