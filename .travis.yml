@@ -54,24 +54,32 @@ matrix:
           sources: llvm-toolchain-trusty-8
           packages: clang-8
 
+# Sanitizers disabled for this toolset as they started causing link troubles: 
+# hidden symbol `_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE11__recommendEm' isn't defined
+# - env: B2_ARGS='cxxstd=03,11,14 toolset=clang-libc++ cxxflags="--coverage -DBOOST_TRAVISCI_BUILD" linkflags="--coverage"' GCOVTOOL='gcov_for_clang.sh'
+#  name: "Clang-3.8, libc++"
+#  addons:
+#    apt:
+#      packages: clang libc++-dev libc++abi-dev
+#
+    
+#     - env: B2_ARGS='cxxstd=98,03,11,14,1z toolset=clang-8 cxxflags="-stdlib=libc++ --coverage -DBOOST_TRAVISCI_BUILD" linkflags="-stdlib=libc++ --coverage"' GCOVTOOL='gcov_for_clang.sh'
+#       name: "Clang-8 libc++"
+#       addons:
+#         apt:
+#           sources: llvm-toolchain-trusty-8
+#           packages: 
+#             - clang-8
+#             - libc++-8-dev
+#             - libc++abi-8-dev
+          
     # Sanitizers disabled for this toolset as they started causing link troubles: 
     # hidden symbol `_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE11__recommendEm' isn't defined
-    # - env: B2_ARGS='cxxstd=03,11,14 toolset=clang-libc++ cxxflags="--coverage -DBOOST_TRAVISCI_BUILD" linkflags="--coverage"' GCOVTOOL='gcov_for_clang.sh'
-    #  name: "Clang-3.8, libc++"
-    #  addons:
-    #    apt:
-    #      packages: clang libc++-dev libc++abi-dev
-    #
-    
-    - env: B2_ARGS='cxxstd=98,03,11,14,1z toolset=clang-8 cxxflags="-stdlib=libc++ --coverage -DBOOST_TRAVISCI_BUILD" linkflags="-stdlib=libc++ --coverage"' GCOVTOOL='gcov_for_clang.sh'
-      name: "Clang-8 libc++"
+    - env: B2_ARGS='cxxstd=03,11,14 toolset=clang-libc++ cxxflags="--coverage -DBOOST_TRAVISCI_BUILD" linkflags="--coverage"' GCOVTOOL='gcov_for_clang.sh'
+      name: "Clang-3.8, libc++"
       addons:
         apt:
-          sources: llvm-toolchain-trusty-8
-          packages: 
-            - clang-8
-            - libc++-8-dev
-            - libc++abi-8-dev
+          packages: clang libc++-dev libc++abi-dev
 
 ###############################################################################################################
 # From this point and below code is same for all the Boost libs
