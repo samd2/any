@@ -62,23 +62,16 @@ matrix:
     #    apt:
     #      packages: clang libc++-dev libc++abi-dev
     #
-
-    - os: linux
-      dist: xenial
-      name: libc++
-      compiler: clang-libc++
-      env: TOOLSET=clang COMPILER=clang++-8 CXXSTD=03,11,14,17,20 CXXFLAGS="-stdlib=libc++" LINKFLAGS="-stdlib=libc++" GCOVTOOL="gcov_for_clang.sh"
+    
+    - env: B2_ARGS='cxxstd=98,03,11,14,1z toolset=clang-8 cxxflags="-stdlib=libc++ --coverage -DBOOST_TRAVISCI_BUILD" linkflags="-stdlib=libc++ --coverage"' GCOVTOOL='gcov_for_clang.sh'
+      name: "Clang-8 libc++"
       addons:
         apt:
-          packages:
+          sources: llvm-toolchain-trusty-8
+          packages: 
             - clang-8
             - libc++-8-dev
             - libc++abi-8-dev
-          sources:
-            - sourceline: "ppa:ubuntu-toolchain-r/test"
-            - sourceline: "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
-              key_url: "https://apt.llvm.org/llvm-snapshot.gpg.key"
-
 
 ###############################################################################################################
 # From this point and below code is same for all the Boost libs
