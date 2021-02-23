@@ -63,17 +63,20 @@ jobs:
             llvm_ver: "8"
             b2_args: "cxxstd=98,03,11,14,1z toolset=clang-8 cxxflags=\"--coverage -fsanitize=address,leak,undefined -fno-sanitize-recover=undefined -DBOOST_TRAVISCI_BUILD\" linkflags=\"--coverage -fsanitize=address,leak,undefined\""
             gcovtool: "gcov_for_clang.sh"
-          - name: "Clang-3.8, libc++"
+          - name: "libc++"
             buildtype: "boost"
-            packages: "clang libc++-dev libc++abi-dev"
+            packages: "clang-10 libc++-10-dev libc++abi-10-dev"
             packages_to_remove: ""
             os: "ubuntu-16.04"
-            cxx: "g++"
+            cxx: "clang++-10"
             sources: ""
-            llvm_os: ""
-            llvm_ver: ""
-            b2_args: "cxxstd=03,11,14 toolset=clang-libc++ cxxflags=\"--coverage -DBOOST_TRAVISCI_BUILD\" linkflags=\"--coverage\""
-            gcovtool: "gcov_for_clang.sh"
+            llvm_os: "xenial"
+            llvm_ver: "10"
+            cxxflags: "-stdlib=libc++"
+            linkflags: "-stdlib=libc++"
+            toolset: "clang"
+            compiler: "clang++-10"
+            cxxstd: "03,11,14,17,20"
 
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -96,6 +99,11 @@ jobs:
           JOB_BUILDTYPE: ${{ matrix.buildtype }}
           B2_ARGS: ${{ matrix.b2_args }}
           GCOVTOOL: ${{ matrix.gcovtool }}
+          CXXFLAGS: ${{ matrix.cxxflags }}
+          LINKFLAGS: ${{ matrix.linkflags }}
+          TOOLSET: ${{ matrix.toolset }}
+          COMPILER: ${{ matrix.compiler }}
+          CXXSTD: ${{ matrix.cxxstd }}
           TRAVIS_BRANCH: ${{ github.base_ref }}
           TRAVIS_OS_NAME: "linux"
         run: |
