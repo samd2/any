@@ -71,7 +71,7 @@ jobs:
             cxx: "clang++-7"
             sources: ""
             llvm_os: "xenial"
-            llvm_ver: "10"
+            llvm_ver: "7"
             cxxflags: "-stdlib=libc++"
             linkflags: "-stdlib=libc++"
             gcovtool: "gcov_for_clang.sh"
